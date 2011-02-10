@@ -1,0 +1,23 @@
+inherit kde4
+
+DESCRIPTION="KDE sound editor"
+HOMEPAGE="http://kwave.sourceforge.net/"
+SRC_URI="mirror://sourceforge/kwave/${P}-1.tar.bz2"
+
+PATCH_URI="
+	0.8.5-cmake.patch
+	0.8.5-pthread_yield.patch
+	0.8.5-qt47.patch
+	0.8.5-signal_h.patch
+"
+
+DIFF_EXCLUDES="*.docbook *.po"
+
+DEPEND="${KDE4_DEPEND} poxml"
+
+CYGCMAKE_ARGS="
+	-DWITH_ALSA=OFF
+	-DWITH_DOC=OFF
+	-DWITH_MP3=ON
+	-DWITH_PULSEAUDIO=OFF
+"

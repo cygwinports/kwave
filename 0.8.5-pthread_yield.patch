@@ -1,0 +1,13 @@
+Will no longer be necessary with Cygwin 1.7.8
+
+--- origsrc/kwave-0.8.5/libkwave/PluginManager.cpp	2009-12-24 06:41:40.000000000 -0600
++++ src/kwave-0.8.5/libkwave/PluginManager.cpp	2011-02-09 19:55:21.329073900 -0600
+@@ -416,7 +416,7 @@ void Kwave::PluginManager::sync()
+     qApp->flush();
+ 
+     while (onePluginRunning()) {
+-	pthread_yield();
++	sched_yield();
+ 	qApp->processEvents();
+ 	qApp->flush();
+     }

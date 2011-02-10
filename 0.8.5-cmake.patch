@@ -1,0 +1,53 @@
+--- origsrc/kwave-0.8.5/libgui/CMakeLists.txt	2009-12-24 06:43:36.000000000 -0600
++++ src/kwave-0.8.5/libgui/CMakeLists.txt	2011-02-09 19:29:02.057833600 -0600
+@@ -75,7 +75,8 @@ SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_
+ #############################################################################
+ ### install files                                                         ###
+ 
+-INSTALL(TARGETS libkwavegui LIBRARY DESTINATION ${KDE4_LIB_INSTALL_DIR} NAMELINK_SKIP)
++INSTALL(TARGETS libkwavegui LIBRARY DESTINATION ${KDE4_LIB_INSTALL_DIR} NAMELINK_SKIP
++                            RUNTIME DESTINATION ${KDE4_BIN_INSTALL_DIR})
+ 
+ #############################################################################
+ #############################################################################
+--- origsrc/kwave-0.8.5/libkwave/CMakeLists.txt	2009-12-24 06:42:15.000000000 -0600
++++ src/kwave-0.8.5/libkwave/CMakeLists.txt	2011-02-09 19:29:13.102652900 -0600
+@@ -131,7 +131,8 @@ SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_
+ #############################################################################
+ ### install files                                                         ###
+ 
+-INSTALL(TARGETS libkwave LIBRARY DESTINATION ${KDE4_LIB_INSTALL_DIR} NAMELINK_SKIP)
++INSTALL(TARGETS libkwave LIBRARY DESTINATION ${KDE4_LIB_INSTALL_DIR} NAMELINK_SKIP
++                         RUNTIME DESTINATION ${KDE4_BIN_INSTALL_DIR})
+ 
+ 
+ #############################################################################
+--- origsrc/kwave-0.8.5/plugins/CMakeLists.txt	2009-12-24 06:35:23.000000000 -0600
++++ src/kwave-0.8.5/plugins/CMakeLists.txt	2011-02-10 03:00:59.310311800 -0600
+@@ -32,7 +32,7 @@ MACRO(KWAVE_PLUGIN _plugin)
+     #########################################################################
+     ### link stage                                                        ###
+ 
+-    KDE4_ADD_LIBRARY(plugin_${_plugin} SHARED ${plugin_${_plugin}_LIB_SRCS})
++    KDE4_ADD_LIBRARY(plugin_${_plugin} MODULE ${plugin_${_plugin}_LIB_SRCS})
+     TARGET_LINK_LIBRARIES(plugin_${_plugin}
+         kwavegui
+         kwave
+@@ -42,7 +42,6 @@ MACRO(KWAVE_PLUGIN _plugin)
+     )
+ 
+     SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES PREFIX "")
+-    SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES SUFFIX "")
+     SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES OUTPUT_NAME "${_plugin}")
+     SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES LINK_FLAGS
+         "-Wl,--export-dynamic -Wl,--add-needed")
+@@ -60,8 +59,7 @@ MACRO(KWAVE_PLUGIN _plugin)
+ 
+     INSTALL(TARGETS
+         plugin_${_plugin}
+-        LIBRARY
+-        DESTINATION ${DESTDIR}${KDE4_MODULE_INSTALL_DIR}/plugins/kwave
++        DESTINATION ${KDE4_MODULE_INSTALL_DIR}/plugins/kwave
+     )
+ 
+ ENDMACRO(KWAVE_PLUGIN)
