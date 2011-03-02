@@ -6,7 +6,6 @@ SRC_URI="mirror://sourceforge/kwave/${P}-1.tar.bz2"
 
 PATCH_URI="
 	0.8.5-cmake.patch
-	0.8.5-pthread_yield.patch
 	0.8.5-qt47.patch
 	0.8.5-signal_h.patch
 "
