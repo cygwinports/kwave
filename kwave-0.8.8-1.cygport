@@ -7,6 +7,7 @@ SRC_URI="mirror://sourceforge/kwave/${P}-1.tar.bz2"
 PATCH_URI="
 	0.8.5-cmake.patch
 	0.8.5-signal_h.patch
+	0.8.8-sysinfo.patch
 "
 
 DIFF_EXCLUDES="*.docbook *.po"
