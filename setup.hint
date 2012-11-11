@@ -1,9 +1,0 @@
-category: Audio KDE
-requires: libaudiofile1 libfftw3_3 libFLAC++6 libFLAC8 libgcc1 libid3_3.8.3 libkdecore5 libmad0 libogg0 libpulse0 libQtCore4 libQtGui4 libsamplerate0 libstdc++6 libvorbis0 libvorbisenc2
-sdesc: "KDE sound editor"
-ldesc: "Kwave is a sound editor designed for the KDE Desktop 
-Environment. With Kwave you can edit many sorts of wav-files including 
-multi-channel files. You are able to alter and play back each channel on 
-its own. Kwave also includes many plugins (most are still under 
-development) to transform the wave-file in several ways and presents a 
-graphical view with a complete zoom- and scroll capability."

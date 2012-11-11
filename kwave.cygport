@@ -1,0 +1,30 @@
+inherit kde4
+
+NAME="kwave"
+VERSION=0.8.9
+RELEASE=1
+CATEGORY="Audio KDE"
+SUMMARY="KDE sound editor"
+DESCRIPTION="Kwave is a sound editor designed for the KDE Desktop Environment.
+With Kwave you can edit many sorts of wav-files including multi-channel files.
+You are able to alter and play back each channel on its own. Kwave also includes
+many plugins to transform the wave-file in several ways and presents a
+graphical view with a complete zoom- and scroll capability."
+HOMEPAGE="http://kwave.sourceforge.net/"
+SRC_URI="mirror://sourceforge/kwave/${P}-1.tar.bz2"
+
+PATCH_URI="
+	0.8.5-cmake.patch
+	0.8.5-signal_h.patch
+	0.8.8-sysinfo.patch
+"
+
+DIFF_EXCLUDES="*.docbook *.po"
+
+DEPEND="${KDE4_DEPEND} poxml"
+
+CYGCMAKE_ARGS="
+	-DWITH_ALSA=OFF
+	-DWITH_DOC=OFF
+	-DWITH_MP3=ON
+"
