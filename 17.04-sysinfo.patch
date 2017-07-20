@@ -1,0 +1,28 @@
+--- origsrc/kwave-17.04.2/cmake/KwaveSysinfo.cmake	2017-06-05 14:06:34.000000000 -0500
++++ src/kwave-17.04.2/cmake/KwaveSysinfo.cmake	2017-07-12 02:22:21.367283500 -0500
+@@ -26,7 +26,6 @@ SET(_try_src_dir "${CMAKE_BINARY_DIR}${C
+ SET(_try_sysinfo "${_try_src_dir}/cmake_try_sysinfo.c")
+ WRITE_FILE("${_try_sysinfo}" "
+     #include <sys/sysinfo.h>
+-    #include <linux/kernel.h>
+     int main()
+     {
+         struct sysinfo info;
+@@ -42,7 +41,6 @@ IF (HAVE_SYSINFO)
+     SET(_try_sysinfo_memunit "${_try_src_dir}/cmake_try_sysinfo_memunit.c")
+     WRITE_FILE("${_try_sysinfo_memunit}" "
+ 	#include <sys/sysinfo.h>
+-	#include <linux/kernel.h>
+ 	int main()
+ 	{
+ 	    struct sysinfo info;
+--- origsrc/kwave-17.04.2/libkwave/MemoryManager.cpp	2017-06-05 14:06:34.000000000 -0500
++++ src/kwave-17.04.2/libkwave/MemoryManager.cpp	2017-07-12 02:21:51.231980100 -0500
+@@ -29,7 +29,6 @@
+ #include <QString>
+ 
+ #ifdef HAVE_SYSINFO
+-#include <linux/kernel.h> // for struct sysinfo
+ #include <sys/sysinfo.h>  // for sysinfo()
+ #endif
+ 

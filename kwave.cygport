@@ -1,7 +1,7 @@
-inherit kde4
+inherit kf5
 
 NAME="kwave"
-VERSION=0.8.10
+VERSION=17.04.3
 RELEASE=1
 CATEGORY="Audio"
 SUMMARY="KDE sound editor"
@@ -11,21 +11,21 @@ You are able to alter and play back each channel on its own. Kwave also includes
 many plugins to transform the wave-file in several ways and presents a
 graphical view with a complete zoom- and scroll capability."
 HOMEPAGE="http://kwave.sourceforge.net/"
-SRC_URI="mirror://sourceforge/kwave/kwave-${VERSION}-1.tar.bz2"
 
 PATCH_URI="
-	0.8.5-cmake.patch
-	0.8.5-signal_h.patch
-	0.8.8-sysinfo.patch
-	0.8.10-cputest.patch
+	17.04-cmake-install.patch
+	17.04-cmake-link.patch
+	17.04-dllexport.patch
+	17.04-sysinfo.patch
 "
+
+REQUIRES="lame"
 
 DIFF_EXCLUDES="*.docbook *.po"
 
-DEPEND="${KDE4_DEPEND} poxml"
-
 CYGCMAKE_ARGS="
 	-DWITH_ALSA=OFF
-	-DWITH_DOC=OFF
+	-DWITH_DOC=ON
 	-DWITH_MP3=ON
+	-DWITH_OPTIMIZED_MEMCPY=OFF
 "

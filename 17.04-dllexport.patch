@@ -1,0 +1,63 @@
+--- origsrc/kwave-17.04.3/kwave/CMakeLists.txt	2017-07-14 16:46:57.327630900 -0500
++++ src/kwave-17.04.3/kwave/CMakeLists.txt	2017-07-20 00:54:28.800345500 -0500
+@@ -107,7 +107,6 @@ ADD_DEPENDENCIES(kwave_core libkwavegui
+ 
+ SET_TARGET_PROPERTIES(kwave_core PROPERTIES
+     OUTPUT_NAME "kwave"
+-    ENABLE_EXPORTS TRUE
+ )
+ 
+ #############################################################################
+--- origsrc/kwave-17.04.2/libgui/CMakeLists.txt	2017-06-05 14:06:34.000000000 -0500
++++ src/kwave-17.04.2/libgui/CMakeLists.txt	2017-07-12 02:32:56.588117200 -0500
+@@ -89,8 +89,6 @@ TARGET_LINK_LIBRARIES(libkwavegui
+ )
+ 
+ SET_TARGET_PROPERTIES(libkwavegui PROPERTIES OUTPUT_NAME "kwavegui")
+-SET_TARGET_PROPERTIES(libkwavegui PROPERTIES LINK_FLAGS
+-    "-Wl,--export-dynamic")
+ SET_TARGET_PROPERTIES(libkwavegui PROPERTIES
+     VERSION ${KWAVE_VERSION} SOVERSION ${KWAVE_VERSION_MAJOR} )
+ SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
+--- origsrc/kwave-17.04.2/libkwave/CMakeLists.txt	2017-06-05 14:06:34.000000000 -0500
++++ src/kwave-17.04.2/libkwave/CMakeLists.txt	2017-07-12 02:30:38.534415900 -0500
+@@ -160,7 +160,6 @@ TARGET_LINK_LIBRARIES(libkwave
+ #############################################################################
+ 
+ SET_TARGET_PROPERTIES(libkwave PROPERTIES OUTPUT_NAME "kwavecore")
+-SET_TARGET_PROPERTIES(libkwave PROPERTIES LINK_FLAGS "-Wl,--export-dynamic")
+ SET_TARGET_PROPERTIES(libkwave PROPERTIES
+     VERSION ${KWAVE_VERSION} SOVERSION ${KWAVE_VERSION_MAJOR} )
+ SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
+--- origsrc/kwave-17.04.2/libkwave/FileInfo.h	2017-06-05 14:06:34.000000000 -0500
++++ src/kwave-17.04.2/libkwave/FileInfo.h	2017-07-12 02:38:01.932673500 -0500
+@@ -256,7 +256,7 @@ namespace Kwave
+ 	/**
+ 	 * Pre-filled map with property names and descriptions
+ 	 */
+-	class PropertyTypesMap: public Kwave::TypesMap<FileProperty, Flags>
++	class Q_DECL_EXPORT PropertyTypesMap: public Kwave::TypesMap<FileProperty, Flags>
+ 	{
+ 	public:
+ 	    /** constructor */
+--- origsrc/kwave-17.04.2/libkwave/SampleArray.h	2017-06-05 14:06:34.000000000 -0500
++++ src/kwave-17.04.2/libkwave/SampleArray.h	2017-07-12 02:43:59.305302400 -0500
+@@ -119,7 +119,7 @@ namespace Kwave
+ 
+     private:
+ 
+-	class SampleStorage: public QSharedData {
++	class Q_DECL_EXPORT SampleStorage: public QSharedData {
+ 	public:
+ 
+ 	    /** default constructor */
+--- origsrc/kwave-17.04.2/plugins/CMakeLists.txt	2017-06-05 14:06:34.000000000 -0500
++++ src/kwave-17.04.2/plugins/CMakeLists.txt	2017-07-12 02:33:08.953621200 -0500
+@@ -59,7 +59,6 @@ MACRO(KWAVE_PLUGIN _plugin)
+     SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES
+         PREFIX "kwaveplugin_"
+         OUTPUT_NAME "${_plugin}"
+-        LINK_FLAGS "-Wl,--export-dynamic"
+         ENABLE_EXPORTS TRUE
+     )
+     SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})

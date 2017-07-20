@@ -1,0 +1,65 @@
+For some reason, the kwave binary also tries to export an implib, which
+ends up clobbering that of the core library, which then causes any plugins
+not yet built to fail to link.
+
+--- origsrc/kwave-17.04.2/kwave/CMakeLists.txt	2017-06-05 14:06:34.000000000 -0500
++++ src/kwave-17.04.2/kwave/CMakeLists.txt	2017-07-12 02:47:21.669910900 -0500
+@@ -86,8 +86,8 @@ ADD_EXECUTABLE(kwave_core ${kwave_SRCS})
+ #############################################################################
+ 
+ TARGET_LINK_LIBRARIES(kwave_core
+-    kwavegui
+-    kwave
++    libkwavegui
++    libkwave
+     audiofile
+     ${SAMPLERATE_LIBS}
+     Qt5::Core
+--- origsrc/kwave-17.04.2/libgui/CMakeLists.txt	2017-06-05 14:06:34.000000000 -0500
++++ src/kwave-17.04.2/libgui/CMakeLists.txt	2017-07-12 02:32:56.588117200 -0500
+@@ -75,7 +75,7 @@ ADD_LIBRARY(libkwavegui SHARED ${libkwav
+ ADD_DEPENDENCIES(libkwavegui libkwave)
+ 
+ TARGET_LINK_LIBRARIES(libkwavegui
+-    kwave
++    libkwave
+     Qt5::Core
+     Qt5::Concurrent
+     Qt5::Widgets
+--- origsrc/kwave-17.04.3/libkwave/CMakeLists.txt	2017-07-20 01:02:44.198238800 -0500
++++ src/kwave-17.04.3/libkwave/CMakeLists.txt	2017-07-20 01:12:28.761811300 -0500
+@@ -159,7 +159,7 @@ TARGET_LINK_LIBRARIES(libkwave
+ 
+ #############################################################################
+ 
+-SET_TARGET_PROPERTIES(libkwave PROPERTIES OUTPUT_NAME "kwave")
++SET_TARGET_PROPERTIES(libkwave PROPERTIES OUTPUT_NAME "kwavecore")
+ SET_TARGET_PROPERTIES(libkwave PROPERTIES LINK_FLAGS "-Wl,--export-dynamic")
+ SET_TARGET_PROPERTIES(libkwave PROPERTIES
+     VERSION ${KWAVE_VERSION} SOVERSION ${KWAVE_VERSION_MAJOR} )
+--- origsrc/kwave-17.04.2/plugins/CMakeLists.txt	2017-06-05 14:06:34.000000000 -0500
++++ src/kwave-17.04.2/plugins/CMakeLists.txt	2017-07-12 02:33:08.953621200 -0500
+@@ -38,8 +38,8 @@ MACRO(KWAVE_PLUGIN _plugin)
+ 
+     ADD_LIBRARY(plugin_${_plugin} MODULE ${plugin_${_plugin}_LIB_SRCS})
+     TARGET_LINK_LIBRARIES(plugin_${_plugin}
+-        kwavegui
+-        kwave
++        libkwavegui
++        libkwave
+         ${plugin_${_plugin}_LIBS}
+         ${SAMPLERATE_LIBS}
+         Qt5::Core
+--- origsrc/kwave-17.04.3/plugins/goto/CMakeLists.txt	2017-07-09 17:50:06.000000000 -0500
++++ src/kwave-17.04.3/plugins/goto/CMakeLists.txt	2017-07-20 00:56:31.247395300 -0500
+@@ -36,8 +36,8 @@ ADD_LIBRARY(plugin_goto_common STATIC ${
+ SET_TARGET_PROPERTIES(plugin_goto_common PROPERTIES ENABLE_EXPORTS ON)
+ ADD_DEPENDENCIES(plugin_goto_common libkwave libkwavegui)
+ TARGET_LINK_LIBRARIES(plugin_goto_common
+-    kwavegui
+-    kwave
++    libkwavegui
++    libkwave
+     Qt5::Core
+     Qt5::Widgets
+     KF5::ConfigWidgets
